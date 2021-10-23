@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="text-center">
+
+        <h1>共{{ nodes_list|length }}个节点</h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">序号</th>
+                <th scope="col">类型</th>
+                <th scope="col">IP</th>
+                <th scope="col">端口</th>
+                <th scope="col">备注</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in nodes_list %}
+                <tr>
+                    <td>{{ nodes_list.index(item) }}</td>
+                    <td>{{ item.type }}</td>
+                    {% if item.add %}
+                        <td>{{ item.add }}</td>
+                    {% elif item.server %}
+                        <td>{{ item.server }}</td>
+                    {% endif %}
+                    <td>{{ item.port }}</td>
+                    {% if item.name %}
+                        <td>{{ item.name }}</td>
+                    {% elif item.ps %}
+                        <td>{{ item.ps }}</td>
+                    {% endif %}
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% if error %}
+            <div class="alert alert-warning" role="alert">
+                <h4 class="alert-heading">警告</h4>
+                <hr>
+                <p>错误信息：{{ error }}</p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
